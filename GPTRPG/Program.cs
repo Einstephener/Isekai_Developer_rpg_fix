@@ -5,6 +5,7 @@ using System.Reflection.Emit;
 using System.Security.Cryptography.X509Certificates;
 using Newtonsoft.Json;
 using System.IO;
+using System.Xml.Linq;
 
 
 internal class Program
@@ -1253,6 +1254,107 @@ internal class Program
         }
     }
 
+    public static void DungeonField(Character player1)
+    {
+        Console.Clear();
+        Console.WriteLine();
+        Console.WriteLine(" 진행하려면 enter");
+        Console.WriteLine();
+        Console.ReadKey();
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine(" 슬라임 등장!");
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.ReadKey();
+
+        Console.WriteLine(" 전투 시작");
+        Console.WriteLine();
+        Console.ReadKey();
+        Console.WriteLine(" 슬라임의 공격!");
+        Damage = 30 - player1.Def; //몬스터의 공격 - 플레이어의 방어력 = 깎이는 체력
+        if (Damage <= 0)
+        {
+            Damage = 0;
+        }
+        player1.Hp = player1.Hp - Damage;
+        Console.WriteLine($" 체력이 {Damage} 감소했다.");
+        Console.ReadKey();
+        Console.WriteLine($" 당신의 남은 체력 : {player1.Hp}");
+
+        if (player1.Hp > 0)
+        {
+
+            Console.WriteLine();
+            Console.WriteLine(" 당신의 공격!");
+
+            Console.WriteLine();
+            Console.WriteLine(" 슬라임을 처치했습니다.");
+            Console.WriteLine();
+            Console.ReadKey();
+            switch (player1.Atk) //공격력에 따른 추가 보상
+            {
+                case 30:
+                    player1.Gold = player1.Gold + 300;
+                    Console.WriteLine(" 300G 획득");
+
+                    IncreaseExperience(player1, 60);
+                    Console.WriteLine(" 60EXP 획득");
+                    break;
+                case 20:
+                    player1.Gold = player1.Gold + 200;
+                    Console.WriteLine(" 200G 획득");
+
+                    IncreaseExperience(player1, 40);
+                    Console.WriteLine(" 40EXP 획득");
+                    break;
+                case 10:
+                    player1.Gold = player1.Gold + 100;
+                    Console.WriteLine(" 100G 획득");
+
+                    IncreaseExperience(player1, 20);
+                    Console.WriteLine(" 20EXP 획득");
+                    break;
+                default:
+                    player1.Gold = player1.Gold + 50;
+                    Console.WriteLine(" 50G 획득");
+
+                    IncreaseExperience(player1, 10);
+                    Console.WriteLine(" 10EXP 획득");
+                    break;
+            }
+
+            Console.ReadKey();
+
+            Console.WriteLine();
+            Console.WriteLine(" 던전을 클리어 하셨습니다.");
+            Console.WriteLine();
+            Console.WriteLine($" 1. 이지모드 다시 하기");
+            Console.WriteLine(" 2. 난이도 변경");
+            Console.WriteLine(" 3. 마을로 귀환하기");
+            Console.WriteLine(">>");
+
+
+            int input = CheckValidInput(1, 3);
+            switch (input)
+            {
+                case 1:
+                    //이지 던전 다시 돌기
+                    EasyInDunGeon(player1);
+                    break;
+                case 2:
+                    //던전포탈로 귀환
+                    DungeonPotal();
+                    break;
+                case 3:
+                    //마을로 귀환
+                    ShowVillageFirst();
+                    break;
+            }
+        }
+        else
+        {
+            MedicalCost();
+        }
+    }
 }
 
 //레벨 범위 Class
