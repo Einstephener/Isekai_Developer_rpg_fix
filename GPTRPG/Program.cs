@@ -32,11 +32,9 @@ internal class Program
     private static Monster gobline;
     private static Monster demon;
 
-
+    //캐릭터 선언
     private static Character player1;
 
-
-    public static int GetDamage;
 
 
     public int level = player1.Level;
@@ -471,7 +469,7 @@ internal class Program
                 ShowVillageFirst();
                 break;
             case 1:
-                // 상점에서 아이템을 구매하는 메소드 호출
+                // 상점에서 아이템을 구매하는 메서드 호출
                 BuyItem(player1);
                 break;
             case 2:
@@ -1054,7 +1052,7 @@ internal class Program
         }
     }
 
-    //입력 키 확인 메소드
+    //입력 키 확인 메서드
     static int CheckValidInput(int min, int max)
     {
         while (true)
@@ -1072,6 +1070,7 @@ internal class Program
         }
     }
 
+    //몬스터 전투 메서드
     public static void DungeonField(Character player1, Monster monster)
     {
         Console.Clear();
@@ -1101,7 +1100,7 @@ internal class Program
 
             Console.WriteLine();
             Console.WriteLine($" {monster.MonsterName}의 공격!");
-            GetDamage = (monster.MonsterAtk) - player1.Def; //몬스터의 공격 - 플레이어의 방어력 = 깎이는 체력
+            int GetDamage = (monster.MonsterAtk) - player1.Def; //몬스터의 공격 - 플레이어의 방어력 = 깎이는 체력
             if (GetDamage <= 0)
             {
                 GetDamage = 0;
