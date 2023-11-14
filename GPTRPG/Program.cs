@@ -1076,15 +1076,16 @@ internal class Program
     {
         Console.Clear();
         Console.WriteLine();
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine($" {monster.MonsterName} 등장!");
+        Console.WriteLine();
+        Console.ResetColor();
         Console.WriteLine(" 진행하려면 enter");
         Console.WriteLine();
         Console.ReadKey();
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine($" {monster.MonsterName} 등장!");
-        Console.ResetColor();
-        Console.ReadKey();
         Console.WriteLine(" 전투 시작");
         int turnCount = 0;
+        int saveHp = monster.MonsterHp;
         while (player1.Hp > 0 && monster.MonsterHp > 0) // 플레이어나 몬스터가 죽을 때까지 반복
         {
 
@@ -1094,23 +1095,23 @@ internal class Program
             Console.WriteLine($" 당신은 {monster.MonsterName}에게 {player1.Atk}의 데미지를 주었다.");
             Console.WriteLine();
             Console.WriteLine($" {monster.MonsterName}의 남은 체력: {monster.MonsterHp}");
+            Thread.Sleep(1000);  // 턴 사이에 1초 대기
 
             if (monster.MonsterHp <= 0) break;  // 몬스터가 죽었다면 턴 종료
 
-            Thread.Sleep(500);  // 턴 사이에 1초 대기
-
             Console.WriteLine();
-            Console.ReadKey();
             Console.WriteLine($" {monster.MonsterName}의 공격!");
             GetDamage = (monster.MonsterAtk) - player1.Def; //몬스터의 공격 - 플레이어의 방어력 = 깎이는 체력
             if (GetDamage <= 0)
             {
                 GetDamage = 0;
+                Console.ForegroundColor = ConsoleColor.Blue;
                 Console.Write(" 방어성공!");
+                Console.ResetColor();
             }
             player1.Hp = player1.Hp - GetDamage;
             Console.WriteLine($" 체력이 {GetDamage} 감소했다.");
-            Console.ReadKey();
+            Console.WriteLine();
             Console.WriteLine($" 당신의 남은 체력 : {player1.Hp}");
             Console.WriteLine();
 
@@ -1121,13 +1122,14 @@ internal class Program
 
         if (player1.Hp <= 0)
         {
-            Console.WriteLine("사망하셨습니다.");
+            Console.WriteLine(" 사망하셨습니다.");
             MedicalCost();
         }
         else if (monster.MonsterHp <= 0)
         {
             Console.WriteLine();
             Console.WriteLine($" {monster.MonsterName}을 처치했습니다.");
+            Console.ForegroundColor = ConsoleColor.Blue;
             switch (turnCount) //공격력에 따른 추가 보상
             {
                 case 1:
@@ -1147,16 +1149,19 @@ internal class Program
                     break;
                 default:
                     player1.Gold = player1.Gold + monster.MonsterGold;
-                    Console.WriteLine(" 50G 획득");
+                    Console.WriteLine(" {0}G 획득", (monster.MonsterGold));
 
                     IncreaseExperience(player1, monster);
                     Console.WriteLine(" {0}EXP 획득", (monster.MonsterExperience));
                     break;
 
             }
+            Console.ResetColor();
         }
-
-
+        monster.MonsterHp = saveHp;
+        Console.WriteLine();
+        Console.WriteLine(" 진행하려면 enter");
+        Console.WriteLine();
     }
 }
 
