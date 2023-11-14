@@ -7,7 +7,6 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Xml.Linq;
 
-
 internal class Program
 {
 
@@ -456,7 +455,7 @@ internal class Program
         Console.WriteLine();
         Console.WriteLine(" 1. 아이템 구매하기");
         Console.WriteLine();
-        Console.WriteLine(" 2. 구매목록 확인하기");
+        Console.WriteLine(" 2. 아이템 판매하기");
         Console.WriteLine();
         Console.WriteLine(" 0. 뒤로가기");
         Console.Write(">>");
@@ -474,9 +473,44 @@ internal class Program
                 break;
             case 2:
                 //구매 목록 확인
-                DisplayInventoryInshop(player1);
+                SellItem(player1);
                 break;
         }
+    }
+
+    //상점에서 확인할 수 있는 인벤토리
+    static void SellItem(Character player)
+    {
+        Console.Clear();
+
+        Console.WriteLine();
+        Console.WriteLine(" [인벤토리]");
+        Console.WriteLine();
+        Console.WriteLine("====================================================================");
+        Console.WriteLine(" 판매하고 싶은 아이템");
+        Console.WriteLine();
+        //아이템들 나열
+        for (int i = 0; i < player1.Inventory.Count; i++)
+        {
+            var item = player1.Inventory[i];
+            Console.WriteLine($" {i + 1}. {item.ItemName} \t| 판매가격: {item.ItemGold}G");
+
+        }
+        Console.WriteLine("====================================================================");
+        Console.WriteLine();
+
+        int itemIndex = CheckValidInput(1, player.Inventory.Count) - 1;
+
+        Item selectedItem = player1.Inventory[itemIndex]; // 선택한 아이템 가져오기
+
+        player.Gold += selectedItem.ItemGold; // 골드 차감
+        player1.Inventory.Remove(selectedItem);//선택한 아이템 제거
+        Console.WriteLine($" {selectedItem.ItemName}을(를) 판매했습니다!");
+
+        Console.WriteLine(" Press Anykey to go Back.");
+        Console.Write(">>");
+        Console.ReadKey();
+        Shop(); // 다시 상점으로 돌아가기
     }
 
     //구매한 아이템 인벤토리로 옮기기
@@ -1021,37 +1055,7 @@ internal class Program
         }
     }
 
-    //상점에서 확인할 수 있는 인벤토리
-    static void DisplayInventoryInshop(Character player)
-    {
-        Console.Clear();
-
-        Console.WriteLine();
-        Console.WriteLine(" [인벤토리]");
-        Console.WriteLine();
-        Console.WriteLine("====================================================================");
-        Console.WriteLine(" 소지중인 아이템 목록:");
-        Console.WriteLine();
-        //아이템들 나열
-        foreach (Item item in player.Inventory)
-        {
-            Console.WriteLine($" - {item.ItemName}");
-        }
-
-        Console.WriteLine();
-        Console.WriteLine("====================================================================");
-        Console.WriteLine();
-        Console.WriteLine(" Press 0 to go back.");
-        Console.Write(">>");
-
-        int input = CheckValidInput(0, 0);
-        if (input == 0)
-        {
-            //상점창으로 돌아가기
-            Shop();
-        }
-    }
-
+    
     //입력 키 확인 메서드
     static int CheckValidInput(int min, int max)
     {
@@ -1162,12 +1166,4 @@ internal class Program
         Console.WriteLine(" 진행하려면 enter");
         Console.WriteLine();
     }
-}
-
-//레벨 범위 Class
-public class LevelRange
-{
-    public int startLevel;
-    public int endLevel;
-    public int experienceCapIncrease;
 }
