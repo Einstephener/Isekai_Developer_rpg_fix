@@ -474,7 +474,7 @@ internal class Program
         }
     }
 
-    //상점에서 확인할 수 있는 인벤토리
+    //상점에서 물건 되판매
     static void SellItem(Character player)
     {
         Console.Clear();
@@ -499,7 +499,7 @@ internal class Program
 
         Item selectedItem = player1.Inventory[itemIndex]; // 선택한 아이템 가져오기
 
-        player.Gold += selectedItem.ItemGold; // 골드 차감
+        player.Gold += selectedItem.ItemGold; // 골드 더하기
         player1.Inventory.Remove(selectedItem);//선택한 아이템 제거
         Console.WriteLine($" {selectedItem.ItemName}을(를) 판매했습니다!");
 
@@ -1127,7 +1127,7 @@ internal class Program
             Console.WriteLine();
             Console.WriteLine($" {monster.MonsterName}을 처치했습니다.");
             Console.ForegroundColor = ConsoleColor.Blue;
-            switch (turnCount) //공격력에 따른 추가 보상
+            switch (turnCount) //턴에 따른 추가 보상
             {
                 case 1:
 
