@@ -15,7 +15,6 @@ internal class Program
     //몬스터 리스트
     private static List<Monster> monsters = new List<Monster>();
 
-
     //아이템들 선언
     private static Item ring1;
     private static Item ring2;
@@ -34,11 +33,8 @@ internal class Program
     //캐릭터 선언
     private static Character player1;
 
-
-
     public int level = player1.Level;
     public static int experienceCap;
-
 
     public static List<LevelRange> levelRanges = new List<LevelRange>();
 
@@ -556,7 +552,6 @@ internal class Program
 
     }
 
-
     //던전 포탈
     static void DungeonPotal()
     {
@@ -1055,7 +1050,6 @@ internal class Program
         }
     }
 
-    
     //입력 키 확인 메서드
     static int CheckValidInput(int min, int max)
     {
