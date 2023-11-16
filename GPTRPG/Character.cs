@@ -4,10 +4,10 @@ public class Character
 {
     public string Name { get; set;} //캐릭터 이름
     public string Job { get; set;} //캐릭터 직업
-    public int Str { get; private set; } //캐릭터 힘
-    public int Dex { get; private set; } //캐릭터 민첩
-    public int IQ { get; private set; } //캐릭터 지능
-    public int Luk { get; private set; } //캐릭터 운
+    public int Str { get;  set; } //캐릭터 힘
+    public int Dex { get;  set; } //캐릭터 민첩
+    public int IQ { get;  set; } //캐릭터 지능
+    public int Luk { get;  set; } //캐릭터 운
     public int Hp { get; set; } //캐릭터 체력
     public int Month { get; set; } //캐릭터 호봉(개월 수)
     public int Mind {get; set;} //캐릭터 정신력

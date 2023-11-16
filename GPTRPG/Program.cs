@@ -36,6 +36,9 @@ internal class Program
 
     //캐릭터 선언
     private static Character player1;
+
+    // ConsoleKeyInfo 선언
+    ConsoleKeyInfo e;
     /*
     레벨업 부분 주석 화
     public int level = player1.Level;
@@ -335,17 +338,16 @@ internal class Program
 
         Random Shoes = new Random();
         int number = Shoes.Next(2);
-        switch (number)
+        if(number ==0)
         {
-            case 0:
-                Console.WriteLine("네 닦았습니다!!");
-                Console.WriteLine("아무일도 일어나지 않았다");
-                break;
-
-            case 1:
-                Console.WriteLine("(식은땀을 흘리며) 못닦았습니다");
-                Console.WriteLine("체력이 - 10 감소했습니다");
-                break;
+            Console.WriteLine("네 닦았습니다!");
+            console.WriteLine("아무일도 일어나지 않았다");
+        }
+        else
+        {
+            hp -= 30;
+            Console.WriteLine("아 미쳐 닦지 못했습니다..");
+            Console.WriteLine("하.. 아침부터 큰일이네;; ");
         }
         // 만약 굳건이가 군화를 닦았다면 아무일도 일어나지 않는다
         // 굳건이가 군화를 안닦았다면 -hp  확률 50%
@@ -372,19 +374,17 @@ internal class Program
 
         Random Talk = new Random();
         int number = Talk.Next(2);
-        switch(number)
-        {
-            case 0:
-            Console.WriteLine("예 있습니다");
-            Console.WriteLine("아무일도 일어나지 않았다");
-            break;
-
-            case 1:
-            Console.WriteLine("아뇨.. 아무도 없습니다..");
-            Console.WriteLine("(하.. 앞으로 군생활 어떻게 하냐..)");
-            Console.WriteLine("운(luk)이 -30 감소했습니다");
-            break; // luk -- 30 구현
-        }
+       if(number = 0)
+       {
+        Console.WriteLine("네 있습니다!! 저 여자친구도 있고 여동생 1명과 누나 1명 있습니다");
+        Console.WriteLine("군생활이 화창하다!");
+       }
+       else
+       {
+        luck-=30;
+        Console.WriteLine("아뇨.. 아무도 없습니다");
+        Console.WriteLine("군생활 어떻하냐.. 막막하네..");
+       }
         Console.WriteLine("하루가 1년같았다..");
         Console.ReadKey();
         Home();
@@ -396,12 +396,14 @@ internal class Program
     {
 
         Random random = new Random();
-        double success = 0.1; //초기 성공 확률
+        double success = 0.1; //초기 성공 확률 10%
 
 
         Console.Clear();
         Console.WriteLine("당신은 유격훈련에 참가했다.");
         Console.WriteLine("지옥의 PT체조가 시작됐다.");
+        Console.WriteLine("\"본 교관 나쁜사람 아닙니다.\"")
+        Console.WriteLine("\"")
         Console.WriteLine("교관은 쉽게 갈 생각이 없는거같다 살아남자!");
         Console.WriteLine();
         Console.WriteLine("1.동작");
@@ -422,9 +424,15 @@ internal class Program
             }
             else
             {
-                
                 //실패문구 랜덤생성
-                success += 0.05;
+                string[] failMessages={
+                    "목소리 크게 합니다. 다시!",
+                    "누가 마지막 구호를 외쳐! 다시!",
+                    "자세 똑바로 합니다. 다시!"
+                };
+                int randomIndex = random.Next(failMessages.Length);
+                Console.WriteLine(failMessages[randomIndex]);
+                success += 0.05; //실패시 성공확률 5%씩 증가
             }
         }
         //switch (randomNumber)
@@ -586,15 +594,32 @@ internal class Program
 
     }
 
-    //상병 스토리-후임병 인터뷰
-    static void CSInterview()
+    //상병 스토리-전준태
+    static void CSDefcon(Character player)
     {
         Console.Clear();
         Console.WriteLine();
-        Console.WriteLine("불안 불안하던 맞후임이 있었다.");
-        Console.WriteLine("하는 짓이 폐급같아서 지켜보던 와중이였다");
-        Console.WriteLine("그런데 그놈이 마편을 찔렀다");
-        Console.WriteLine("이게 뒤통수를 쳐?!");
+        Console.WriteLine("웨에에에엥-");
+        Console.WriteLine("화스트 페이스. 화스트 페이스.");
+        Console.WriteLine("타다다닥-");
+        Console.WriteLine("생활관으로 달려가서 개인 군장을 챙기고 물자를 챙긴다.");
+        Console.WriteLine("물자를 챙기는 와중에 팔이 뻐근함을 느낀다.");
+        Console.WriteLine("체력 테스트. 체력 n 이상"); //수정가능
+        if( player1.str >= 10)
+        {
+            Console.WriteLine("아슬아슬했지만 안정적으로 물자를 다 옮기는데 성공했다.");
+        }
+        else
+        {
+            Console.WriteLine("물자를 옮기던 와중 쏟아버렸다.");
+            Console.WriteLine("간부의 엄청난 쿠사리가 쏟아진다.");
+            
+        }
+
+        Console.WriteLine();
+                
+        Console.WriteLine();
+        
         Console.WriteLine();
         Console.WriteLine("1. ");
         Console.WriteLine("2. 수비");
@@ -631,10 +656,8 @@ internal class Program
     //    (확률) 명중률 보상 20발 중 명중, 빗나감 개수에 따른 차등보상
 
     //일병 스토리 - 100일 휴가
-    static void OneHundredDaysvacation()
+    static void HundredDaysvacationScene()
     {
-        ConsoleKeyInfo e;
-
         // 초기 씬 셋팅값
         int cursor = 0;
         bool onScene = true;
@@ -643,7 +666,7 @@ internal class Program
         Random random = new Random();
 
         // Random값을 담아둘 변수
-        int rannumber = 0;
+        int randomNum = 0;
 
         // 선택지 Text
         string[] text = {"1. 여자친구를 만나러 간다.",
@@ -655,7 +678,7 @@ internal class Program
         while (onScene)
         {
             // Random Number 설정
-            rannumber = reandom.Next(1, 10);
+            randomNum = reandom.Next(1, 10);
 
             Console.WriteLine("드디어 100일 휴가를 나왔다!");
             Console.WriteLine("어떤 일을 먼저 해볼까?");
@@ -678,6 +701,9 @@ internal class Program
                     cursor++;
                     if (cursor > text.Length - 1) cursor = 0;
                     break;
+                case ConsoleKey.Enter:
+                    onScene = fasel;
+                    break;
                 default:
                     break;
             }
@@ -691,23 +717,26 @@ internal class Program
         {
             case 0:
                 // 여자친구 만나러
-                OneHundredDaysEvennt(rannumber, "여자친구가 다른 남자와 다정하게 걷고있다...",
-                "여자친구와 즐거운 시간을 보냈다.");
+                OneHundredDaysEvennt(randomNum, "여자친구가 다른 남자와 다정하게 걷고 있다...",
+                "여자친구와 즐거운 시간을 보냈다.",
+                "나는 여자친구가 없다...");
                 break;
             case 1:
                 // 친구들 만나러
-                // 술마시며 논다 ( 50 % )
-                // pc방에서 논다 ( 30 % )
-                // 친구가 없다 ( 20 % )
+                OneHundredDaysEvennt(randomNum, "오랜만에 친구들과 술 한잔하며 이야기했다.",
+                "친구들과 Pc방에 가서 시간 가는 줄 모르고 놀았다.",
+                "나는 친구가 없다...");
                 break;
             case 2:
-            // 본가로 간다
-            // 가족과 식사
-            // 집에 아무도 없다
+                // 본가로 간다
+                OneHundredDaysEvennt(randomNum, "오랜만에 집에 왔건만 군대에서 뭐했냐며 잔소리만 들었다...",
+                "가족들과 오랜만에 식사하며 좋은 시간을 보냈다.",
+                "내가 오는 줄 몰랐나..? 아무도 없다...");
             case 3:
                 // 혼자 논다
-                // pc방가서 논다
-                // 집에서 쉰다
+                OneHundredDaysEvennt(randomNum, "혼자 즐겁게 놀았다. 진짜 즐거운 거 맞다, 아마도..",
+                "여기저기 구경 다니며 신나게 놀았다.",
+                "생활관에 있을 때가 더 나은 거 같다 너무 외롭다..");
                 break;
             default:
                 break; 
@@ -715,7 +744,7 @@ internal class Program
         }
     }
 
-    static void OneHundredDaysEvennt(int input, string one, string two, string three)
+    static void OneHundredDaysEvent(int input, string one, string two, string three)
     {
             if(input < 6) // 50%
             {
@@ -736,11 +765,8 @@ internal class Program
 
 
     // 일병 스토리 - 사격 훈련
-    static void Shooting()
+    static void ShootingScene()
     {
-        // KeyInfo
-        ConsoleKeyInfo e;
-
         // Random 객체 생성
         Random random = new Random();
 
@@ -750,7 +776,6 @@ internal class Program
 
         // Wave 설정
         int totalWave = 10;
-        int currentWave = 1;
         int hitCount = 0;
 
         // 선택지 Text
@@ -773,13 +798,16 @@ internal class Program
         Console.WriteLine("");
         Console.ReadKey();
 
-        // Wave 반복문
-        do
+        for(int currentWave = 1; currentWave <= totalWave; currentWave++)
         {
+            // 10웨이브 반복
             while (onScene)
             {
                 // 화면 초기화
                 Console.Clear();
+
+                // cursor위치 초기화
+                cursor = 0;
 
                 // Random 거리 초기화 ( 200m , 100m, 50m )
                 num = random.Next(0, 2);
@@ -789,6 +817,7 @@ internal class Program
                 Console.WriteLine("사격 거리 : {0}m ", distance[num]);
                 Console.WriteLine("");
                 Console.WriteLine("어디를 조준하고 사격할까?");
+                Console.WriteLine("");
 
                 for (int i = 0; i < text.Length; i++)
                 {
@@ -808,6 +837,9 @@ internal class Program
                         cursor++;
                         if (cursor > text.Length - 1) cursor = 0;
                         break;
+                    case ConsoleKey.Enter:
+                        onScene = false;
+                        break;
                     default:
                         break;
                 }
@@ -816,35 +848,23 @@ internal class Program
             // 화면 지우기
             Console.Clear();
 
-            // 커서 값에 따른 선택지
-            switch (cursor)
-            {
-                case 0:
-                    // 머리 사격
-                    hitCount = ShootingEvent(num, hitCount);
-                    break;
-                case 1:
-                    // 몸통 사격
-                    hitCount = ShootingEvent(num, hitCount);
-                    break;
-                case 2:
-                    // 바닥 경계선 사격
-                    hitCount = ShootingEvent(num, hitCount);
-                    break;
-                default:
-                    break;
-            }
-         currentWave++;  // 웨이브 + 1
-        }while(currentWave <= totalWave);   // 10웨이브 종료시 끝
+            // 사격 로직 및 명중 횟수++
+            hitCount = ShootingEvent(num, hitCount, cursor);
+
+            // 웨이브 + 1
+            currentWave++;
+
+            onScene = true;
+        }
 
         // hitCount(명중 횟수)에 따른 보상 로직 작성.
         // 1~5 폐급, 6~8 평균, 9~10 특등사수 
     }
 
     // Shooting 처리 메서드
-    static int ShootingEvent(int input, int _hitCount)
+    static int ShootingEvent(int input, int _hitCount, int _cursor)
     {
-        if(input == cursor)
+        if(input == _cursor)
         {
             Console.WriteLine("명중!!!");
             _hitCount++;
@@ -855,15 +875,34 @@ internal class Program
             Console.WriteLine("빗나갔다...");
             Console.ReadKey();
         }
-        break;
 
         return _hitCount;
+    }
+
+    static void CursorChoice(ReadKey e, int _cursor, string _text[])
+    {
+            switch (e.Key)
+            {
+                case ConsoleKey.UpArrow:
+                    cursor--;
+                    if (_cursor < 0) cursor = _text.Length - 1;
+                    break;
+                case ConsoleKey.DownArrow:
+                    cursor++;
+                    if (_cursor > _text.Length - 1) cursor = 0;
+                    break;
+                case ConsoleKey.Enter:
+                    onScene = false;
+                    break;
+                default:
+                    break;
+            }
     }
 
     // 일병 스토리 - 대민지원
     static void DMsupport() 
     {
-        Console.clear();
+        Console.Clear();
         Console.WriteLine("민간 지역에 큰화재가 발생했다!");
         Console.WriteLine("대민지원 활동에 참여해야겠다!");
         Console.WriteLine("");
@@ -872,128 +911,295 @@ internal class Program
         Console.WriteLine("무너진 건물 잔해가 많다고 하니 다치지 않게 하길 바란다!");
         Console.WriteLine("");
         Console.ReadKey();
+                
+        Console.WriteLine("=======================================");
+        Console.WriteLine("10번의 삽질을 시도해서 6번 성공하세요!");
+        Console.WriteLine("=======================================");
+        Console.WriteLine("");
+        Console.ReadKey();
+        Console.Clear();
+        
+        Console.WriteLine("삽질 시작하기");
+        Console.ReadKey();
+        
 
         int sucessCount = 0;
         Random random = new Random();
 
-        Console.WriteLine("=====================================");
-        Console.WriteLine("10번의 삽질을 시도해서 6번 성공하세요!");
-        Console.WriteLine("=====================================");
-        Console.WriteLine("");
-        Console.ReadKey();
-
-        for (int i = 1; i <= 10; i++)
+        string userInput = Console.ReadLine();
+        while (true)
         {
-            bool fireControlSuccess = random.Next(0, 2) == 0;    // 50%확률로 성공
 
-            if (fireControlSuccess)
+            for (int i = 0; i <= 10; i++)
             {
-                sucessCount++;
-                Console.WriteLine($"{i}. 삽질에 성공했습니다!");
+                bool fireControlSuccess = random.Next(0, 2) == 0; // 50%확률로 성공
+
+                if (fireControlSuccess)
+                {
+                    sucessCount++;
+                    Console.WriteLine($"{i}. 삽질에 성공했습니다!");
+                }
+                else
+                {
+                    Console.WriteLine($"{i}. 삽질에 실패했습니다.");
+                }
+                break;
+            }
+
+            Console.WriteLine("======================================================");
+            Console.WriteLine($"결과: 10번에 삽질 중 {sucessCount}번 성공했습니다!");
+            Console.WriteLine("======================================================");
+            Console.WriteLine("1. 결과확인하기");
+            Console.ReadLine();
+            Console.Clear();
+
+            if (sucessCount >= 6)
+            {
+                Console.WriteLine("대민지원을 완료했습니다.");
+                // Input 이전화면으로가서 스토리진행
             }
             else
             {
-                Console.WriteLine($"{i}. 삽질에 실패했습니다.");
+                Console.WriteLine("대민지원을 실패했습니다.");
+                Console.WriteLine("다시 시도하시겠습니까? (Y)");
+                Console.WriteLine("나가시겠습니까? (N)");
+                string response = Console.ReadLine();
+                if (response.ToUpper() == "Y")
+                {
+                    continue; // 실패시 다시 시작
+                }
+                else
+                {
+                    break;// 나가기 (이전화면)
+                }
+            }
+        }
+    } 
+
+    // 외박(선택지) : 1.여자친구 2. 가족 3. 친구 셋중 플레이어가 고르도록 유도하고 보너스 능력치를 주는 스토리 능력치는 세가지 전부 다르게(가족>친구) 여친은 꽝 -능력치(여친 도망간스토리)
+    static void overnight()
+    {
+        Console.WriteLine("첫 외박날짜가 정해졌습니다. 기대와 설렘이 가득찬 그의 마음속에는");
+        Console.WriteLine("어디를 가야할지, 누구를 만나야 할지에 대한 고민으로 가득차있습니다.");
+        
+    }
+
+
+
+        
+    }
+    
+        static int workCount = 0;
+        static int Perfection = 0;
+        static void HardWork()
+        {
+            workCount++;
+            Console.Clear();
+            Console.WriteLine("아침에 행정반을 가니 행보관님계서 두가지 선택권을 주셨다.");
+            Console.WriteLine("하나는 행보관님과 공구리를 치는것이고 하나는 보급병과 창고정리를 하는 것이다.");
+            Console.WriteLine();
+            Console.WriteLine($"1. 행보관님과 공구리 작업");
+            Console.WriteLine($"2. 보급병과 창고정리");
+            Console.WriteLine();
+            int input = CheckValidInput(1, 2);
+            switch (input)
+            {
+                case 1:
+                    CementWork1();
+                    break;
+                case 2:
+                    
+                    break;
             }
         }
 
-        Console.WriteLine("====================================================");
-        Console.WriteLine($"결과: 10번에 삽질 중 {sucessCount}번 성공했습니다!");
-        Console.WriteLine("====================================================");
+        static void CementWork1()
+        {
+            Console.Clear();
+            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10-workCount}");
+            Console.WriteLine("시멘트 포대를 옮겨야 한다.");
+            Console.WriteLine("말년에는 떨어지는 낙엽도 조심하라고 하는데 나에게는 너무 가혹한 일이다.");
+            Console.WriteLine("나와 같이 배정받은 후임들이 보인다.");
+            Console.WriteLine();
+            Console.WriteLine($"1. 후임들에게 시키고 관리 감독을 한다");
+            Console.WriteLine($"2. 후임들과 함께 포대를 옮긴다.");
+            Console.WriteLine();
+            int input = CheckValidInput(1, 2);
+            switch (input)
+            {
+                case 1:
+                    workCount += 1;
+                    Perfection += 1;
+                    CementWork2();
+                    break;
+                case 2:
+                    workCount += 1;
+                    Perfection += 3;
+                    CementWork2();
+                    break;
+            }
+        }
+        static void CementWork2()
+        {
+            Console.Clear();
+            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine("시멘트를 물과 섞어야한다.");
+            Console.WriteLine("옆에는 교회가 있고 군종병이 청소를 한다고 문을 열어뒀다.");
+            Console.WriteLine("주변을 둘러보니 간부는 보이지 않는다.");
+            Console.WriteLine();
+            Console.WriteLine("1. 교회에 들어가서 한숨 잔다.");
+            Console.WriteLine("2. 후임들을 믿을 수 없다 직접 시멘트를 만든다.");
+            int input = CheckValidInput(1, 2);
+            switch (input)
+            {
+                case 1:
+                    workCount += 1;
+                    Perfection = 0; //확률 넣어야함
+                    CementWork3();
+                    break;
+                case 2:
+                    workCount += 2;
+                    Perfection += 3;
+                    CementWork3();
+                    break;
+            }
+        }
+        static void CementWork3()
+        {
+            Console.Clear();
+            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine("점심먹고 오후 작업을 시작해야한다.");
+            Console.WriteLine("하지만 점심 먹고 슬 잠이 쏟아진다.");
+            Console.WriteLine();
+            Console.WriteLine("1. 생활관에 숨어서 계속 잠을 잔다.");
+            Console.WriteLine("2. 후임들을 통솔하고 작업하러 떠난다.");
+            int input = CheckValidInput(1, 2);
+            switch (input)
+            {
+                case 1:
+                    workCount += 3;
+                    Perfection += 3; //확률 넣어야함
+                    CementWorkLoop();
+                    break;
+                case 2:
+                    workCount += 1;
+                    Perfection += 3;
+                    CementWorkLoop();
+                    break;
+            }
 
-        if (sucessCount >= 6)
-        {
-            Console.WriteLine("대민지원을 완료했습니다.");
-            // Input 이전화면
         }
-        else
+        static void CementWork4()
         {
-            Console.WriteLine("대민지원을 실패했습니다.");
-            //Input 다시하기, 나가기
+            Console.Clear();
+            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine("후임들이 곤란해 하는 것 같다.");
+            Console.WriteLine("도와주면 쉽게 끝낼 수 있을 것 같다.");
+            Console.WriteLine();
+            Console.WriteLine("1. 계속 지켜본다.");
+            Console.WriteLine("2. 후임들에게 시범을 보여준다.");
+            int input = CheckValidInput(1, 2);
+            switch (input)
+            {
+                case 1:
+                    workCount += 1;
+                    Perfection += 2;
+                    CementWorkLoop();
+                    break;
+                case 2:
+                    workCount += 1;
+                    Perfection += 1; //확률로 마이너스
+                    CementWorkLoop();
+                    break;
+            }
+
         }
-    }
-    
-    int workCount = 0;
-    int Perfection = 0;
-    static void HardWork
-    {
-        workCount++
-        Console.Clear();
-        Console.WriteLine("아침에 행정반을 가니 행보관님계서 두가지 선택권을 주셨다.")
-        Console.WriteLine("하나는 행보관님과 공구리를 치는것이고 하나는 보급병과 창고정리를 하는 것이다.")
-        Console.WriteLine();
-        Console.WriteLine($"1. 행보관님과 공구리 작업")
-        console.WriteLine($"2. 보급병과 창고정리")
-        console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
+        static void CementWork5()
         {
-            case 1:
-                CementWork();
-                break;
-            case 2:
-                WarehouseWork();
-                break;
+            Console.Clear();
+            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine("아직 작업량이 많이 남은 것 같다.");
+            Console.WriteLine("시간 내로 끝내려면 나도 거들어야 한다.");
+            Console.WriteLine(); 
+            Console.WriteLine("1. 계속 지켜본다");
+            Console.WriteLine("2. 후임들을 도와 작업을 마무리한다");
+            int input = CheckValidInput(1, 2);
+            switch (input)
+            {
+                case 1:
+                    workCount += 1;
+                    Perfection += 3;
+                    CementWorkLoop();
+                    break;
+                case 2:
+                    workCount += 1;
+                    Perfection += 1;
+                    CementWorkLoop();
+                    break;
+            }
+
         }
-    }
-        
-    static void CementWork1
-    {
-        Console.Clear();
-        Console.WriteLine("시멘트 포대를 옮겨야 한다.")
-        Console.WriteLine("말년에는 떨어지는 낙엽도 조심하라고 하는데 나에게는 너무 가혹한 일이다.")
-        Console.WriteLine("나와 같이 배정받은 후임들이 보인다.")
-        Console.WriteLine();
-        Console.WriteLine($"1. 후임들에게 시키고 관리 감독을 한다")
-        console.WriteLine($"2. 후임들과 함께 포대를 옮긴다.")
-        console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
+        static void CementWorkLoop()
         {
-            case 1:
-                workCount += 1;
-                Perfection += 1;
-                CementWork2();
-                break;
-            case 2:
-                workCount += 1;
-                Perfection += 3;
-                CementWork2();
-                break;
+            Random random = new Random();
+            if (workCount < 9)
+            {
+                if (Perfection < 10)
+                {
+                    int randomChoice = random.Next(0, 2);
+
+                    if (randomChoice == 0)
+                    {
+                        CementWork4();
+                    }
+                    else
+                    {
+                        CementWork5();
+                    }
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("작업이 완료되었다.");
+                    Console.WriteLine($"개인정비까지 {9-workCount}시간 남았으니 휴식하자");
+                    Console.WriteLine("능력치 상승 & 스트레스 감소");
+                    Perfection = 0;
+                    workCount = 0;
+                }
+
+            }
+            else
+            {
+                if (Perfection >= 10)
+                {
+                    Console.Clear();
+                    Console.WriteLine("작업이 완료되었다.");
+                    Console.WriteLine($"개인정비까지 {9}시간 남았으니 휴식하자");
+                    Console.WriteLine("능력치 상승 & 스트레스 감소");
+                    Perfection = 0;
+                    workCount = 0;
+                }
+                else if (Perfection < 10 && Perfection >= 7)
+                {
+                    Perfection = 0;
+                    workCount = 0;
+                    Console.Clear();
+                    Console.WriteLine("일과가 마무리 되었다. 작업물이 살짝 아쉽지만 완벽한 가라는 진짜랬다.");
+                    Console.WriteLine("들키지만 않으면 아무렴 어떠한가");
+                    Console.WriteLine("능력치 상승 & 스트레스 감소");
+                }
+                else
+                {
+                    Perfection = 0;
+                    workCount = 0;
+                    Console.Clear();
+                    Console.WriteLine("시작이 반이고 가만히 있으면 반이라도 간다고 한다.");
+                    Console.WriteLine("시작하고 가만히 있었겄만 결과가 터무니 없다.");
+                    Console.WriteLine("개인정비 시간때 행보관님과 공구리 작업을 치게 되었다.");
+                    Console.WriteLine("능력치 상승 & 스트레스 상승");
+                }
+            }
         }
-    }
-    static void CementWork2
-    {
-        Console.Clear();
-        console.WriteLine("시멘트를 물과 섞어야한다.")
-        console.WriteLine("옆에는 교회가 있고 군종병이 청소를 한다고 문을 열어뒀다.")
-        console.WriteLine("주변을 둘러보니 간부는 보이지 않는다.")
-        console.WriteLine()
-        console.WriteLine("1. 교회에 들어가서 한숨 잔다.")
-        console.WriteLine("2. 후임들을 믿을 수 없다 직접 시멘트를 만든다.")
-                switch (input)
-        {
-            case 1:
-                workCount += 1;
-                Perfection = 0; //확률 넣어야함
-                CementWork3();
-                break;
-            case 2:
-                workCount += 2;
-                Perfection += 3;
-                CementWork3();
-                break;
-        }
-    }
-    static void CementWork3
-    {
-        Console.Clear();
-        console.WriteLine("")
-    }
-    static void CementWorkLoop
-    {
-        //3시간 점심1시간 6시간
-    }
 
     */
 
