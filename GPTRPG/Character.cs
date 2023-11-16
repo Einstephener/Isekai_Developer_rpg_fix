@@ -2,12 +2,15 @@
 //캐릭터 클래스
 public class Character
 {
-    public string Name { get; } //캐릭터 이름
-    public string Job { get; } //캐릭터 직업
-    public int Atk { get; private set; } //캐릭터 공격력
-    public int Def { get; private set; } //캐릭터 방어력
+    public string Name { get; set;} //캐릭터 이름
+    public string Job { get; set;} //캐릭터 직업
+    public int Str { get; private set; } //캐릭터 힘
+    public int Dex { get; private set; } //캐릭터 민첩
+    public int IQ { get; private set; } //캐릭터 지능
+    public int Luk { get; private set; } //캐릭터 운
     public int Hp { get; set; } //캐릭터 체력
-    public int Experience { get; set; }
+    public int Month { get; set; } //캐릭터 호봉(개월 수)
+    public int Mind {get; set;} //캐릭터 정신력
 
     public int _gold; //소유 골드
     public List<Item> Inventory { get; } = new List<Item>(); // 인벤토리 리스트 추가
@@ -17,14 +20,14 @@ public class Character
     {
         get { return _level; }
         set
-        {
+        {/*
             // Level이 변경될 때마다 레벨업 로직 수행
             for (int i = _level + 1; i <= value; i++)
             {
                 Atk += 2 * (i - 1); // 레벨업 할 때마다 Atk가 2*(Level-1)만큼 증가
                 Def += 2 * (i - 1); // 레벨업 할 때마다 Def가 2*(Level-1)만큼 증가
             }
-
+*/
             _level = value;
         }
     }
@@ -35,15 +38,18 @@ public class Character
     }
 
 
-    public Character(string name, string job, int level, int atk, int def, int hp, int gold)
+    public Character(string name, string job, int str, int dex, int iq, int luk, int hp, int month, int gold, int mind)
     {
         Name = name;
         Job = job;
-        Level = level;
-        Atk = atk;
-        Def = def;
+        Str = str;
+        Dex = dex;
+        IQ = iq;
+        Luk = luk;
         Hp = hp;
+        Month = month;
         _gold = gold;
+        Mind = mind;
 
     }
 
@@ -55,7 +61,8 @@ public class Character
         //인벤토리에 아이템 추가
         Inventory.Add(item);
     }
-    
+
+    /*
     //장비 장착
     public void EquipItem(int input)
     {
@@ -90,5 +97,8 @@ public class Character
             Console.WriteLine(" 잘못된 인덱스입니다.");
         }
         
+        
     }
+    */
+
 }

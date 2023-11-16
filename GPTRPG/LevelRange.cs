@@ -1,5 +1,5 @@
 ﻿
-//레벨 범위 Class
+//진급 범위 Class
 public class LevelRange
 {
     public int startLevel;
